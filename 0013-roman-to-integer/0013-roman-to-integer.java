@@ -3,12 +3,25 @@ class Solution {
         char[] c = s.toCharArray();
         int result = 0;
         int tmp = 0;
-        Map<Character, Integer> nums = Map.of(
-            'I', 1, 'V', 5, 'X', 10, 'L', 50, 'C', 100, 'D', 500, 'M', 1000);
+        HashMap<Character, Integer> nums = new HashMap<Character, Integer>();
+        nums.put('I', 1);
+        nums.put('V', 5);
+        nums.put('X', 10);
+        nums.put('L', 50);
+        nums.put('C', 100);
+        nums.put('D', 500);
+        nums.put('M', 1000);
         for(int i = 0; i < c.length; i++) {
-            int curr = nums.get(c[c.length - i - 1]);
-            result += curr >= tmp ? curr : -curr;
-            tmp = curr;
+            for(Character j : nums.keySet()) {
+                if(c[c.length - i - 1] == j) {
+                    if(nums.get(j) >= tmp) {
+                        result += nums.get(j);
+                    } else {
+                        result -= nums.get(j);
+                    }
+                    tmp = nums.get(j);
+                }
+            }
         }
         return result;
     }
